@@ -8,7 +8,8 @@ class Crypto extends Component {
     super();
 
     this.state = {
-      cryptoList: []
+      cryptoList: [],
+      filteredCryptoList: []
     }
   }
 
@@ -49,6 +50,9 @@ class Crypto extends Component {
                   newCryptoObj.cssClass = 'blue';
                   newCryptoObj.htmlArray = String.fromCodePoint(8596);
                 }
+              } else {
+                newCryptoObj.cssClass = 'blue';
+                newCryptoObj.htmlArray = String.fromCodePoint(8596);
               }
               
               newCryptoList.push(newCryptoObj);
@@ -59,28 +63,29 @@ class Crypto extends Component {
             });
           }
         )
-        
+        this.filterCryptoList();
       }
     );
 
   }
 
-  filterCryptoList = (value) => {
-    let pattern = value.trim().toUpperCase();
+  filterCryptoList = () => {
+    let pattern = this._inputField.value.trim().toUpperCase();
     
     this.setState((prevState) => {
-        let filteredCryptoList = prevState.cryptoList.filter(cryptoObj => {
-            return (cryptoObj.currency.contains(pattern));
-        })
+        let newfilteredCryptoList = prevState.cryptoList.filter(cryptoObj => {
+            return (cryptoObj.currency.includes(pattern));
+        });
+
         return ({
-            cryptoList: filteredCryptoList
-        })
+            filteredCryptoList: newfilteredCryptoList
+        });
     })
   }
 
   componentDidMount() {
     this.getData();
-    this.timerId = setInterval(() => this.getData(), 3000);
+    this.timerId = setInterval(() => this.getData(), 5000);
   }
 
   componentWillUnmount() {
@@ -93,9 +98,9 @@ class Crypto extends Component {
         <input 
           ref={ elem => this._inputField = elem } 
           type="text" 
-          onChange={() => this.filterCryptoList(this._inputField.value)}
+          onChange={this.filterCryptoList}
         />
-        <CryptoList cryptoList={this.state.cryptoList} />
+        <CryptoList cryptoList={this.state.filteredCryptoList} />
       </div>
     );
   }
