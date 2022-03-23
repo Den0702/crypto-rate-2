@@ -38,11 +38,11 @@ class Crypto extends Component {
               }
 
               if (lastCryptoObj !== undefined) {
-                if (lastCryptoObj.currency > newCryptoObj.currency){
+                if (lastCryptoObj.rateLatest > newCryptoObj.rateLatest){
                   newCryptoObj.cssClass = 'red';
                   newCryptoObj.htmlArray = String.fromCodePoint(8595);
                   
-                } else if(lastCryptoObj.currency < newCryptoObj.currency) {
+                } else if(lastCryptoObj.rateLatest < newCryptoObj.rateLatest) {
                   newCryptoObj.cssClass = 'green';
                   newCryptoObj.htmlArray = String.fromCodePoint(8593);
 
