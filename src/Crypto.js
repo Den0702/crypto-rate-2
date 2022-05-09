@@ -9,7 +9,7 @@ class Crypto extends Component {
 
     this.state = {
       cryptoList: [],
-      filteredCryptoList: []
+      //filteredCryptoList: [] - tego nie używamy
     }
   }
 
@@ -78,7 +78,7 @@ class Crypto extends Component {
         });
 
         return ({
-            filteredCryptoList: newfilteredCryptoList
+            cryptoList: newfilteredCryptoList//zamiast filteredCryptoList: newfilteredCryptoList
         });
     })
   }
@@ -100,7 +100,7 @@ class Crypto extends Component {
           type="text" 
           onChange={this.filterCryptoList}
         />
-        <CryptoList cryptoList={this.state.filteredCryptoList} />
+        <CryptoList cryptoList={this.state.cryptoList} />{/* zamiast this.state.filteredCryptoList */}
       </div>
     );
   }
